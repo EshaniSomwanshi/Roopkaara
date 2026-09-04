@@ -1484,15 +1484,22 @@ figcaption {
 }
 
 /* Giant Typographic Backdrop */
-.hero-backdrop-text {
+.hero-backdrop-title {
   position: absolute;
   top: 4%;
   left: 0;
   right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  z-index: 6;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-backdrop-name {
+  position: absolute;
+  top: 14%;
+  left: 0;
+  right: 0;
   text-align: center;
   z-index: 1;
   pointer-events: none;
@@ -1515,7 +1522,6 @@ figcaption {
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  margin-bottom: 1rem;
 }
 .backdrop-sub-line {
   font-family: var(--font-mono);
