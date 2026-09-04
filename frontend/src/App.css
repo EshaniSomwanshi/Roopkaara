@@ -278,6 +278,8 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 .nav-links { display: flex; gap: 2.1rem; font-family: var(--font-mono); font-size: .78rem; }
 .nav-links a {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   padding-bottom: 3px;
   color: var(--muted);
   transition: color var(--dur-fast) var(--ease-state);
