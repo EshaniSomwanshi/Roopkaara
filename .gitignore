@@ -1,3 +1,9 @@
+# macOS
+.DS_Store
+
+# Affinity files
+*.af
+
 # Logs
 logs
 *.log
