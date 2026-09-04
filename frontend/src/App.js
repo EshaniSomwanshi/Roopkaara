@@ -108,6 +108,8 @@ const navItems = [
   ["about", "About"],
 ];
 
+const RESUME_URL = "https://drive.google.com/file/d/1nMU-IFwWzMEcfJsD9FHLgwEyCda2ZLoo/preview";
+
 /* ========================================================================
    Cursor — dot + ring, with a contextual label (and optional preview image)
    when hovering project media.
@@ -484,7 +486,8 @@ export default function App() {
             data-testid="logo-link"
             onClick={(e) => { e.preventDefault(); go("top"); }}
           >
-            <b>ES/</b>ESHANI SOMWANSHI
+            <img src={IMG("logo.svg")} alt="" className="wordmark-logo" />
+            Eshani
           </a>
 
           <nav className="nav-links" aria-label="Primary">
@@ -506,6 +509,14 @@ export default function App() {
               onClick={(e) => { e.preventDefault(); go("contact"); }}
             >
               Contact
+            </a>
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="nav-resume"
+            >
+              Resume
             </a>
           </nav>
 
@@ -549,6 +560,19 @@ export default function App() {
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="mobile-nav-resume"
+              tabIndex={menu ? 0 : -1}
+              onClick={() => setMenu(false)}
+            >
+              Resume
+              <ArrowUpRight size={20} />
+            </a>
+          </li>
         </ul>
         <ThemeSwitch theme={theme} setTheme={setTheme} mobile />
       </div>
