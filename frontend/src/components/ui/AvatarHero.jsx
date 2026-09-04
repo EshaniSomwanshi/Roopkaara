@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import InteractiveAvatar from "./InteractiveAvatar";
 import { Magnetic } from "../../primitives";
 
@@ -122,14 +122,13 @@ export default function AvatarHero({ go, theme = "paper" }) {
       {/* ================= HERO COPY & ACTIONS ================= */}
       <div className="container hero-content-bottom">
         <h1 className="hero-main-title">
-          Four minutes is how long a{" "}
-          <span className="hero-serif-accent">clinician has.</span>
+          Designing clarity into complex systems.
         </h1>
 
         <p className="hero-lede-text">
-          Designing clarity into complex systems. I work across healthcare, AI, and
-          enterprise products, using research, systems thinking, and interactive craft
-          to make complex experiences easier to understand and navigate.
+          I work across healthcare, AI, and enterprise products, using research,
+          systems thinking, and interactive craft to make complex experiences
+          easier to understand and navigate.
         </p>
 
         <div className="hero-btn-group">
@@ -143,7 +142,7 @@ export default function AvatarHero({ go, theme = "paper" }) {
                 go("work");
               }}
             >
-              Explore selected work <ArrowUpRight size={16} />
+              Explore selected work <ArrowDown size={16} />
             </a>
           </Magnetic>
           <Magnetic>
@@ -156,7 +155,7 @@ export default function AvatarHero({ go, theme = "paper" }) {
                 go("contact");
               }}
             >
-              Get in touch
+              Get in touch <ArrowDown size={16} />
             </a>
           </Magnetic>
         </div>
