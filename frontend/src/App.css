@@ -1457,11 +1457,6 @@ figcaption {
   flex-direction: column;
   padding-top: calc(var(--nav-h) + 1rem);
   padding-bottom: clamp(2rem, 4vw, 3.5rem);
-  background: linear-gradient(180deg, rgba(217, 81, 44, 0.08) 0%, rgba(217, 81, 44, 0.15) 100%), var(--surface);
-}
-
-:root[data-theme="carbon"] .avatar-hero-section {
-  background: linear-gradient(180deg, #1f1412 0%, #151010 100%), #121212;
 }
 
 .hero-availability-row {
@@ -1477,9 +1472,14 @@ figcaption {
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(217, 81, 44, 0.08) 0%, rgba(217, 81, 44, 0.15) 100%), var(--surface);
 }
 
-:root[data-theme="petrol"] .avatar-hero-section {
+:root[data-theme="carbon"] .avatar-hero-stage {
+  background: linear-gradient(180deg, #1f1412 0%, #151010 100%), #121212;
+}
+
+:root[data-theme="petrol"] .avatar-hero-stage {
   background: linear-gradient(180deg, #07353f 0%, #042127 100%), #052A31;
 }
 
