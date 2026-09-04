@@ -51,6 +51,17 @@ export default function AvatarHero({ go, theme = "paper" }) {
       data-testid="avatar-hero-section"
       aria-label="Hero introduction"
     >
+      {/* ================= AVAILABILITY BAR ================= */}
+      <div className="container hero-availability-row">
+        <div className="hero-badge-row">
+          <span className="avail-badge">
+            <span className="avail-pulse" />
+            Available for product design roles
+          </span>
+          <span className="hero-location-pill">San Francisco, CA · Healthcare · AI · Systems</span>
+        </div>
+      </div>
+
       {/* ================= HERO STAGE ================= */}
       <div className="avatar-hero-stage">
         {/* Layer 1: Giant Background Typography */}
@@ -59,11 +70,11 @@ export default function AvatarHero({ go, theme = "paper" }) {
           style={reduced ? {} : { x: textParallaxX, y: textParallaxY }}
           aria-hidden="true"
         >
-          <span className="backdrop-name">ESHANI</span>
           <span className="backdrop-sub">
             <span className="backdrop-sub-line">Product Designer</span>
             <span className="backdrop-sub-line">User Experience Designer</span>
           </span>
+          <span className="backdrop-name">ESHANI</span>
         </motion.div>
 
         {/* Layer 2: Background Clouds */}
@@ -90,7 +101,7 @@ export default function AvatarHero({ go, theme = "paper" }) {
 
         {/* Layer 3: Interactive Character Avatar (Eshani) */}
         <div className="hero-avatar-container">
-          <InteractiveAvatar size={400} theme={theme} />
+          <InteractiveAvatar size={620} theme={theme} />
         </div>
 
         {/* Layer 4: Foreground Cloud Silhouette Bed */}
@@ -114,14 +125,6 @@ export default function AvatarHero({ go, theme = "paper" }) {
 
       {/* ================= HERO COPY & ACTIONS ================= */}
       <div className="container hero-content-bottom">
-        <div className="hero-badge-row">
-          <span className="avail-badge">
-            <span className="avail-pulse" />
-            Available for product design roles
-          </span>
-          <span className="hero-location-pill">San Francisco, CA · Healthcare · AI · Systems</span>
-        </div>
-
         <h1 className="hero-main-title">
           Four minutes is how long a{" "}
           <span className="hero-serif-accent">clinician has.</span>
