@@ -298,6 +298,7 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 
 .nav-cta {
   border: 1px solid var(--ink);
+  border-radius: 6px;
   padding: .5em 1.05em;
   color: var(--ink) !important;
   font-size: .72rem;
@@ -1444,9 +1445,18 @@ figcaption {
 .avatar-hero-section {
   position: relative;
   width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-top: calc(var(--nav-h) + 1rem);
-  padding-bottom: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.hero-availability-row {
+  text-align: center;
 }
 
 .avatar-hero-stage {
@@ -1455,7 +1465,7 @@ figcaption {
   max-width: 1320px;
   margin: 0 auto;
   min-height: 480px;
-  height: clamp(440px, 58vh, 600px);
+  height: clamp(520px, 72vh, 840px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -1496,7 +1506,7 @@ figcaption {
 
 .backdrop-name {
   font-family: var(--font-display);
-  font-size: clamp(4.5rem, 16vw, 15rem);
+  font-size: clamp(5rem, 19vw, 18rem);
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -0.04em;
@@ -1510,7 +1520,7 @@ figcaption {
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .backdrop-sub-line {
   font-family: var(--font-mono);
@@ -1641,7 +1651,7 @@ figcaption {
   position: relative;
   z-index: 4;
   width: 100%;
-  max-width: 440px;
+  max-width: min(620px, 50vh);
   display: flex;
   justify-content: center;
   align-items: flex-end;
