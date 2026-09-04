@@ -303,7 +303,7 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 }
 .nav-cta {
   border: 1px solid var(--ink);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: .5em 1.05em;
   color: var(--ink) !important;
   font-size: .72rem;
