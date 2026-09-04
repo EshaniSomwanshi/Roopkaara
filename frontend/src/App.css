@@ -296,8 +296,12 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 .nav-links a:hover::after,
 .nav-links a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left; }
 
+.nav-links a.nav-cta {
+  padding-bottom: .5em;
+}
 .nav-cta {
   border: 1px solid var(--ink);
+  border-radius: 6px;
   padding: .5em 1.05em;
   color: var(--ink) !important;
   font-size: .72rem;
