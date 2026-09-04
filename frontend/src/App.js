@@ -486,7 +486,11 @@ export default function App() {
             data-testid="logo-link"
             onClick={(e) => { e.preventDefault(); go("top"); }}
           >
-            <img src={IMG("logo.svg")} alt="" className="wordmark-logo" />
+            <img
+              src={`${process.env.PUBLIC_URL}/logo/${theme === "paper" ? "black-logo.svg" : "logo-white.svg"}`}
+              alt=""
+              className="wordmark-logo"
+            />
             Eshani
           </a>
 
