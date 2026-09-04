@@ -1679,7 +1679,6 @@ figcaption {
   font-size: 0.76rem;
   letter-spacing: 0.05em;
   color: var(--ink);
-  background: var(--pill);
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
   border: 1px solid var(--line);
