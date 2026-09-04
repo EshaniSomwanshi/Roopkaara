@@ -9,7 +9,7 @@ import {
   useScroll,
   useSpring,
 } from "framer-motion";
-import { ArrowUp, ArrowUpRight, Check, Menu, Minus, Plus, Send } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, Check, Menu, Minus, Plus, Send } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import {
   CountUp,
@@ -43,38 +43,14 @@ const proof = [
   [25, "%", "Higher task completion", "Rebecca Everlene Trust Co.", "Pre/post content restructure"],
 ];
 
-/* TODO(Eshani): fill in the subpoints for each offering (bullet lists, same
-   pattern as `experience` below). Left empty for now per your notes — an
-   accordion with nothing inside just shows a "Detail coming soon" line. */
+/* TODO(Eshani): fill in the subpoints for each offering (bullet lists).
+   Left empty for now per your notes — an accordion with nothing inside just
+   shows a "Detail coming soon" line. */
 const offerings = [
   ["UX/UI Design", []],
   ["Graphic Design", []],
   ["Branding", []],
   ["Industrial Design", []],
-];
-
-const experience = [
-  ["UX/UI Designer", "Rebecca Everlene Trust Company", "Oct 2025 – Present · Chicago, IL",
-    "Leading 0→1 design for a B2C web platform, restructuring dense content into gamified learning modules and integrating AI-automated workflows across 10+ features.",
-    ["Led 0→1 user-centered design from discovery through wireframing, prototyping, and high-fidelity execution.",
-      "Structured complex content into gamified learning modules, increasing task completion by 25% and reducing early-stage drop-off by 40%.",
-      "Partnered with Product and Engineering on AI-driven solutions, flagging technical constraints early and avoiding 2 late-stage redesigns.",
-      "Compressed time-to-prototype by 50% by integrating AI-automated design workflows across 10+ features."]],
-  ["Product Designer", "OptraHealth", "Dec 2024 – Mar 2025 · San Jose, CA",
-    "Primary designer for Zoe, an AI companion, plus onboarding, patient management, and provider monitoring for a health-tech SaaS platform.",
-    ["Shipped mobile onboarding flows, a patient management dashboard, and provider monitoring, lifting weekly engagement by 30%.",
-      "Designed Zoe's interaction layer from the ground up, increasing exercise tutorial completion by 28%.",
-      "Built a 100+ component Figma library adopted by PMs and engineers for independent prototyping.",
-      "Ran 20+ usability and heuristic evaluation sessions, cutting onboarding drop-off among parents by 20%."]],
-  ["UX Designer", "Onward Technologies", "Jul 2024 – Aug 2024 · Chicago, IL",
-    "Designed diagnostic workflows and automated reporting for a regulated B2B health-tech MVP, from journey mapping through high-fidelity delivery.",
-    ["Enabled clinicians to complete diagnostic tasks 20% faster while maintaining compliance in a regulated environment.",
-      "Compressed the MVP timeline from 10 to 7 weeks, eliminating 5 high-severity interaction issues before engineering commitment.",
-      "Set design direction across 3 product pivots through heuristic evaluation and 15+ stakeholder workshops."]],
-  ["Visual Designer", "DAB of India", "Jan 2023 – Aug 2023 · Pune, India",
-    "Built an AI-assisted design workflow across copy, mockups, and social/print assets for 25+ clients.",
-    ["Maintained brand standards across 1,000+ assets with an AI-assisted production workflow.",
-      "Designed brand pitch decks used in client acquisition, contributing to 5+ new client wins."]],
 ];
 
 const tools = [
@@ -416,7 +392,6 @@ function ContactForm() {
 export default function App() {
   const [theme, setTheme] = useTheme();
   const [menu, setMenu] = useState(false);
-  const [openExp, setOpenExp] = useState(null);
   const [openOffer, setOpenOffer] = useState(null);
   const [showTop, setShowTop] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -582,7 +557,51 @@ export default function App() {
       </div>
 
       <main id="main">
-        <AvatarHero go={go} theme={theme} />
+        <AvatarHero theme={theme} />
+
+        {/* ---------- design ---------- */}
+        <section className="section" id="design">
+          <div className="container hero-content-bottom">
+            <h1 className="hero-main-title">
+              Designing clarity into complex systems.
+            </h1>
+
+            <p className="hero-lede-text">
+              I work across healthcare, AI, and enterprise products, using research,
+              systems thinking, and interactive craft to make complex experiences
+              easier to understand and navigate.
+            </p>
+
+            <div className="hero-btn-group">
+              <Magnetic>
+                <a
+                  href="#work"
+                  className="btn btn-primary"
+                  data-testid="hero-work-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go("work");
+                  }}
+                >
+                  Explore selected work <ArrowDown size={16} />
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a
+                  href="#contact"
+                  className="btn btn-secondary"
+                  data-testid="hero-contact-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go("contact");
+                  }}
+                >
+                  Get in touch <ArrowDown size={16} />
+                </a>
+              </Magnetic>
+            </div>
+          </div>
+        </section>
 
         {/* ---------- proof strip ---------- */}
         <section className="proof-strip" aria-label="Selected outcomes">
@@ -957,59 +976,6 @@ export default function App() {
             <Reveal delay={0.15}>
               <ToolMarquee theme={theme} />
             </Reveal>
-          </div>
-        </section>
-
-        {/* ---------- experience ---------- */}
-        <section className="section" id="experience">
-          <div className="container">
-            <div className="section-head">
-              <div>
-                <Reveal><p className="section-label">Experience</p></Reveal>
-                <SplitText as="h2" text="Four roles, one throughline." testId="experience-heading" delay={0.05} />
-              </div>
-              <Reveal delay={0.15}>
-                <p className="desc">Expand any role for the full, verified detail from the résumé.</p>
-              </Reveal>
-            </div>
-            <div>
-              {experience.map(([role, company, dates, summary, detail], idx) => {
-                const isOpen = openExp === idx;
-                return (
-                  <div className="exp-item" key={company} data-testid={`experience-${idx}`}>
-                    <div>
-                      <div className="exp-role">{role}</div>
-                      <div className="exp-company">{company}</div>
-                    </div>
-                    <div>
-                      <p className="exp-summary">{summary}</p>
-                      <button
-                        className="exp-toggle"
-                        onClick={() => setOpenExp(isOpen ? null : idx)}
-                        aria-expanded={isOpen}
-                        data-testid={`experience-toggle-${idx}`}
-                      >
-                        {isOpen ? <><Minus size={13} /> Hide detail</> : <><Plus size={13} /> Show detail</>}
-                      </button>
-                      <AnimatePresence initial={false}>
-                        {isOpen && (
-                          <motion.div
-                            className="exp-detail"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.38, ease: EASE }}
-                          >
-                            <ul>{detail.map((d) => <li key={d.slice(0, 32)}>{d}</li>)}</ul>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                    <div className="exp-dates">{dates}</div>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </section>
 

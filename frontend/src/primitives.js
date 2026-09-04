@@ -5,7 +5,9 @@ import {
   useInView,
   useMotionValue,
   useReducedMotion,
+  useScroll,
   useSpring,
+  useTransform,
 } from "framer-motion";
 
 export const IMG = (name) => `${process.env.PUBLIC_URL}/images/${name}`;
@@ -164,16 +166,26 @@ export function Wipe({
   fit = "cover",
   position = "center",
   zoom = true,
+  parallax = true,
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.25 });
   const reduced = useReducedMotion();
 
+  // Subtle scroll-linked depth — the image drifts a few px slower/faster
+  // than the page as it passes through the viewport. Native scroll itself
+  // is untouched; this only offsets the element's own position.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [-14, 14]);
+
   return (
-    <div
+    <motion.div
       ref={ref}
       className={`wipe${zoom ? " wipe-zoom" : ""} ${className}`}
-      style={ratio ? { aspectRatio: ratio } : undefined}
+      style={{
+        ...(ratio ? { aspectRatio: ratio } : undefined),
+        y: parallax && !reduced ? parallaxY : undefined,
+      }}
     >
       <motion.img
         src={src}
@@ -194,7 +206,7 @@ export function Wipe({
         }
         transition={{ duration: 1.05, delay, ease: EASE }}
       />
-    </div>
+    </motion.div>
   );
 }
 
