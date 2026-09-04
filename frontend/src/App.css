@@ -1486,7 +1486,7 @@ figcaption {
 /* Giant Typographic Backdrop */
 .hero-backdrop-text {
   position: absolute;
-  top: 18%;
+  top: 4%;
   left: 0;
   right: 0;
   display: flex;
