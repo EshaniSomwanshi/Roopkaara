@@ -296,6 +296,9 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 .nav-links a:hover::after,
 .nav-links a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left; }
 
+.nav-links a.nav-cta {
+  padding-bottom: .5em;
+}
 .nav-cta {
   border: 1px solid var(--ink);
   border-radius: 6px;
@@ -1450,9 +1453,13 @@ figcaption {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding-top: calc(var(--nav-h) + 1rem);
   padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  background: linear-gradient(180deg, rgba(217, 81, 44, 0.08) 0%, rgba(217, 81, 44, 0.15) 100%), var(--surface);
+}
+
+:root[data-theme="carbon"] .avatar-hero-section {
+  background: linear-gradient(180deg, #1f1412 0%, #151010 100%), #121212;
 }
 
 .hero-availability-row {
@@ -1462,30 +1469,16 @@ figcaption {
 .avatar-hero-stage {
   position: relative;
   width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-  min-height: 480px;
-  height: clamp(520px, 72vh, 840px);
+  flex: 1;
+  min-height: 420px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
-  border-radius: 28px;
-  background: linear-gradient(180deg, rgba(217, 81, 44, 0.08) 0%, rgba(217, 81, 44, 0.15) 100%), var(--surface);
-  border: 1px solid var(--line);
-  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.03);
 }
 
-:root[data-theme="carbon"] .avatar-hero-stage {
-  background: linear-gradient(180deg, #1f1412 0%, #151010 100%), #121212;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
-  border-color: #282424;
-}
-
-:root[data-theme="petrol"] .avatar-hero-stage {
+:root[data-theme="petrol"] .avatar-hero-section {
   background: linear-gradient(180deg, #07353f 0%, #042127 100%), #052A31;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.4);
-  border-color: #0d4653;
 }
 
 /* Giant Typographic Backdrop */
@@ -1750,8 +1743,6 @@ figcaption {
 @media (max-width: 768px) {
   .avatar-hero-stage {
     min-height: 380px;
-    height: 420px;
-    border-radius: 18px;
   }
   .backdrop-name {
     font-size: 19vw;

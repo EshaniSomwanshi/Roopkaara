@@ -72,7 +72,6 @@ export default function AvatarHero({ go, theme = "paper" }) {
         >
           <span className="backdrop-sub">
             <span className="backdrop-sub-line">Product Designer</span>
-            <span className="backdrop-sub-line">User Experience Designer</span>
           </span>
           <span className="backdrop-name">ESHANI</span>
         </motion.div>
