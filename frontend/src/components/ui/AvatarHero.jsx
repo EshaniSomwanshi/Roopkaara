@@ -26,9 +26,6 @@ export default function AvatarHero({ go, theme = "paper" }) {
   const smoothY = useSpring(mouseY, springConfig);
 
   // Parallax offsets for different depth layers
-  const textParallaxX = useTransform(smoothX, [-1, 1], [-25, 25]);
-  const textParallaxY = useTransform(smoothY, [-1, 1], [-12, 12]);
-
   const cloudBackX = useTransform(smoothX, [-1, 1], [30, -30]);
   const cloudBackY = useTransform(smoothY, [-1, 1], [15, -15]);
 
@@ -64,17 +61,17 @@ export default function AvatarHero({ go, theme = "paper" }) {
 
       {/* ================= HERO STAGE ================= */}
       <div className="avatar-hero-stage">
-        {/* Layer 1: Giant Background Typography */}
-        <motion.div
-          className="hero-backdrop-text"
-          style={reduced ? {} : { x: textParallaxX, y: textParallaxY }}
-          aria-hidden="true"
-        >
+        {/* Layer 1: Title — fixed in place, always in front of the avatar */}
+        <div className="hero-backdrop-title" aria-hidden="true">
           <span className="backdrop-sub">
             <span className="backdrop-sub-line">Product Designer</span>
           </span>
+        </div>
+
+        {/* Layer 1b: Giant Background Typography — fixed in place, stays behind the avatar */}
+        <div className="hero-backdrop-name" aria-hidden="true">
           <span className="backdrop-name">ESHANI</span>
-        </motion.div>
+        </div>
 
         {/* Layer 2: Background Clouds */}
         <motion.div

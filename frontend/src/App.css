@@ -278,6 +278,8 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 .nav-links { display: flex; gap: 2.1rem; font-family: var(--font-mono); font-size: .78rem; }
 .nav-links a {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   padding-bottom: 3px;
   color: var(--muted);
   transition: color var(--dur-fast) var(--ease-state);
@@ -301,7 +303,7 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 }
 .nav-cta {
   border: 1px solid var(--ink);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: .5em 1.05em;
   color: var(--ink) !important;
   font-size: .72rem;
@@ -1455,11 +1457,6 @@ figcaption {
   flex-direction: column;
   padding-top: calc(var(--nav-h) + 1rem);
   padding-bottom: clamp(2rem, 4vw, 3.5rem);
-  background: linear-gradient(180deg, rgba(217, 81, 44, 0.08) 0%, rgba(217, 81, 44, 0.15) 100%), var(--surface);
-}
-
-:root[data-theme="carbon"] .avatar-hero-section {
-  background: linear-gradient(180deg, #1f1412 0%, #151010 100%), #121212;
 }
 
 .hero-availability-row {
@@ -1475,22 +1472,34 @@ figcaption {
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(217, 81, 44, 0.08) 0%, rgba(217, 81, 44, 0.15) 100%), var(--surface);
 }
 
-:root[data-theme="petrol"] .avatar-hero-section {
+:root[data-theme="carbon"] .avatar-hero-stage {
+  background: linear-gradient(180deg, #1f1412 0%, #151010 100%), #121212;
+}
+
+:root[data-theme="petrol"] .avatar-hero-stage {
   background: linear-gradient(180deg, #07353f 0%, #042127 100%), #052A31;
 }
 
 /* Giant Typographic Backdrop */
-.hero-backdrop-text {
+.hero-backdrop-title {
   position: absolute;
-  top: 18%;
+  top: 4%;
   left: 0;
   right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  z-index: 6;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-backdrop-name {
+  position: absolute;
+  top: 14%;
+  left: 0;
+  right: 0;
   text-align: center;
   z-index: 1;
   pointer-events: none;
@@ -1513,7 +1522,6 @@ figcaption {
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  margin-bottom: 1rem;
 }
 .backdrop-sub-line {
   font-family: var(--font-mono);
@@ -1677,7 +1685,6 @@ figcaption {
   font-size: 0.76rem;
   letter-spacing: 0.05em;
   color: var(--ink);
-  background: var(--pill);
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
   border: 1px solid var(--line);
