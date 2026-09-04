@@ -99,7 +99,7 @@ export default function AvatarHero({ go, theme = "paper" }) {
 
           {/* Layer 3: Interactive Character Avatar (Eshani) */}
           <div className="hero-avatar-container">
-            <InteractiveAvatar size={620} theme={theme} />
+            <InteractiveAvatar size={744} theme={theme} />
           </div>
 
           {/* Layer 4: Foreground Cloud Silhouette Bed */}

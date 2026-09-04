@@ -1658,7 +1658,7 @@ figcaption {
   position: relative;
   z-index: 4;
   width: 100%;
-  max-width: min(620px, 50vh);
+  max-width: min(744px, 60vh);
   display: flex;
   justify-content: center;
   align-items: flex-end;

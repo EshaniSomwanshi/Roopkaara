@@ -38,17 +38,14 @@ export default function InteractiveAvatar({
   const smoothX = useSpring(mouseX, spring);
   const smoothY = useSpring(mouseY, spring);
 
-  // Subtle Head Parallax
-  const headRotateY = useTransform(smoothX, [-1, 1], [-5, 5]);
-  const headRotateX = useTransform(smoothY, [-1, 1], [3.5, -3.5]);
-  const headX = useTransform(smoothX, [-1, 1], [-5, 5]);
-  const headY = useTransform(smoothY, [-1, 1], [-3.5, 3.5]);
+  // Whole-figure parallax — hair, face, and body all move together as one
+  // rigid unit so nothing drifts apart during interaction.
+  const figureRotateY = useTransform(smoothX, [-1, 1], [-5, 5]);
+  const figureRotateX = useTransform(smoothY, [-1, 1], [3.5, -3.5]);
+  const figureX = useTransform(smoothX, [-1, 1], [-5, 5]);
+  const figureY = useTransform(smoothY, [-1, 1], [-3.5, 3.5]);
 
-  // Hair Parallax — back mass drifts opposite the cursor, front locks lead it
-  const hairBackX = useTransform(smoothX, [-1, 1], [2.5, -2.5]);
-  const hairFrontX = useTransform(smoothX, [-1, 1], [-6, 6]);
-
-  // Jhumka Reactive Physics
+  // Jhumka Reactive Physics — swing is layered on top of the whole-figure motion
   const earringLeftRotate = useTransform(smoothX, [-1, 1], [-8, 12]);
   const earringRightRotate = useTransform(smoothX, [-1, 1], [-12, 8]);
   const browY = useTransform(smoothY, [-1, 1], [-2, 1.2]);
@@ -309,13 +306,30 @@ export default function InteractiveAvatar({
           </clipPath>
         </defs>
 
+        {/* ---------- WHOLE FIGURE — hair, body, head, and jewelry share one
+             transform so they move as a single rigid figure and never drift
+             apart from each other; only the details nested inside (hair-lock
+             sway, eye tracking, jhumka swing) move independently. ---------- */}
+        <motion.g
+          style={
+            reduced
+              ? {}
+              : {
+                  rotateY: figureRotateY,
+                  rotateX: figureRotateX,
+                  x: figureX,
+                  y: figureY,
+                  transformOrigin: "220px 270px"
+                }
+          }
+        >
         {/* ---------- LAYER 1 — LOOSE HAIR FALLING BEHIND THE SHOULDERS ----------
              Two mirrored locks (not one symmetric blob) so each can sway on
              its own timing — real hair never moves as a single rigid mass.
              Each lock is a base-tone shape plus a lighter highlight stroke
              traced just inside its outer edge, the same base → highlight
              layering used for painted hair. */}
-        <motion.g style={reduced ? {} : { x: hairBackX }}>
+        <g>
           <motion.g
             style={{ transformOrigin: "222px 78px" }}
             animate={reduced ? undefined : { rotate: [-1.6, 1.4, -1.6] }}
@@ -364,7 +378,7 @@ export default function InteractiveAvatar({
               opacity="0.45"
             />
           </motion.g>
-        </motion.g>
+        </g>
 
         {/* ---------- LAYER 2 — NECK, SHOULDERS, KURTA ---------- */}
         <g id="ia-body">
@@ -410,20 +424,7 @@ export default function InteractiveAvatar({
         </g>
 
         {/* ---------- LAYER 3 — HEAD, FEATURES, EYES ---------- */}
-        <motion.g
-          id="ia-head"
-          style={
-            reduced
-              ? {}
-              : {
-                  rotateY: headRotateY,
-                  rotateX: headRotateX,
-                  x: headX,
-                  y: headY,
-                  transformOrigin: "220px 270px"
-                }
-          }
-        >
+        <g id="ia-head">
           {/* Ears */}
           <path d="M150 208 C138 206 133 220 137 234 C140 244 147 250 153 248 Z" fill="url(#ia-skin)" />
           <path
@@ -648,10 +649,10 @@ export default function InteractiveAvatar({
               </>
             )}
           </g>
-        </motion.g>
+        </g>
 
         {/* ---------- LAYER 4 — SWEPT-BACK CROWN + FOUR FACE-FRAMING WAVES ---------- */}
-        <motion.g style={reduced ? {} : { x: hairFrontX }}>
+        <g>
           {/* Swept-Back Front Hair Crown Framing Face */}
           <path
             d="M148 192
@@ -737,7 +738,7 @@ export default function InteractiveAvatar({
             />
           </motion.g>
 
-        </motion.g>
+        </g>
 
         {/* ---------- LAYER 5 — JHUMKAS ---------- */}
         <g id="ia-jhumkas">
@@ -765,6 +766,7 @@ export default function InteractiveAvatar({
             <circle cx="297" cy="276.5" r="1.4" fill="#FFF" stroke="#98A0B0" strokeWidth="0.5" />
           </motion.g>
         </g>
+        </motion.g>
       </motion.svg>
     </div>
   );
