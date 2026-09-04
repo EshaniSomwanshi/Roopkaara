@@ -1450,13 +1450,18 @@ figcaption {
 .avatar-hero-section {
   position: relative;
   width: 100%;
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.avatar-hero-top {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   padding-top: calc(var(--nav-h) + 1rem);
-  padding-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 .hero-availability-row {
