@@ -564,13 +564,10 @@ export default function App() {
         {/* ---------- design ---------- */}
         <section className="section" id="design">
           <div className="container hero-content-bottom">
-            <SplitText
-              as="h1"
-              className="hero-main-title"
-              text="Designing clarity into complex systems."
-              testId="design-heading"
-              delay={0.05}
-            />
+            <h1 className="hero-main-title" data-testid="design-heading">
+              <SplitText text="Designing clarity into" delay={0.05} />{" "}
+              <SplitText text="complex systems." className="hero-serif-accent" delay={0.185} />
+            </h1>
 
             <p className="hero-lede-text">
               I work across healthcare, AI, and enterprise products, using research,

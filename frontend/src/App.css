@@ -1702,6 +1702,17 @@ figcaption {
   margin: 0 auto;
 }
 
+.hero-serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-strong);
+}
+
+/* Two SplitText fragments compose one heading here — override the
+   default block display so they flow inline and wrap together. */
+.hero-main-title .split { display: inline; }
+
 .hero-lede-text {
   margin-top: 1.2rem;
   font-size: clamp(1rem, 1.35vw, 1.15rem);
