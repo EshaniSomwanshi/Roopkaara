@@ -10,7 +10,7 @@ import InteractiveAvatar from "./InteractiveAvatar";
  * - Two drifting parallax cloud layers (bubble cluster removed: too much
  *   competing motion above the headline)
  */
-export default function AvatarHero({ theme = "paper" }) {
+export default function AvatarHero({ theme = "paper", go }) {
   const reduced = useReducedMotion();
   const heroRef = useRef(null);
 
@@ -50,10 +50,18 @@ export default function AvatarHero({ theme = "paper" }) {
         {/* ================= AVAILABILITY BAR ================= */}
         <div className="container hero-availability-row">
           <div className="hero-badge-row">
-            <span className="avail-badge">
+            <a
+              href="#contact"
+              className="avail-badge"
+              data-testid="avail-badge-contact-link"
+              onClick={(e) => {
+                e.preventDefault();
+                go("contact");
+              }}
+            >
               <span className="avail-pulse" />
               Hire me on your team
-            </span>
+            </a>
             <span className="hero-location-pill">San Francisco, CA · Healthcare · AI · Systems</span>
           </div>
         </div>

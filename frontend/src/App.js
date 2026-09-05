@@ -548,7 +548,7 @@ export default function App() {
       </div>
 
       <main id="main">
-        <AvatarHero theme={theme} />
+        <AvatarHero theme={theme} go={go} />
 
         {/* ---------- design ---------- */}
         <section className="section" id="design">

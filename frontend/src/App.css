@@ -1628,6 +1628,11 @@ figcaption {
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
   border: 1px solid var(--line);
+  transition: border-color var(--dur-fast) var(--ease-state), background-color var(--dur-fast) var(--ease-state);
+}
+.avail-badge:hover, .avail-badge:focus-visible {
+  border-color: var(--ink);
+  background: var(--pill);
 }
 
 .avail-pulse {
