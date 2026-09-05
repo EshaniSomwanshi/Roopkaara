@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 import { ArrowDown, ArrowUp, ArrowUpRight, Check, Menu, Minus, Plus, Send } from "lucide-react";
 import { Toaster, toast } from "sonner";
-import { useLenis } from "lenis/react";
+import { useLenis } from "./lib/smoothScroll";
 import {
   CountUp,
   EASE,

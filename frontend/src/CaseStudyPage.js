@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import RotateCard from "./components/devices/RotateCard";
 import BeforeAfter from "./components/site/BeforeAfter";
 import { ReadModeToggle, useReadMode } from "./components/site/ReadMode";
-import { useLenis } from "lenis/react";
+import { useLenis } from "./lib/smoothScroll";
 import {
   EASE,
   IMG,
