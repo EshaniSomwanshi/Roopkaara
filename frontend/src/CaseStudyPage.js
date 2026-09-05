@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import RotateCard from "./components/devices/RotateCard";
 import BeforeAfter from "./components/site/BeforeAfter";
 import { ReadModeToggle, useReadMode } from "./components/site/ReadMode";
+import { useLenis } from "lenis/react";
 import {
   EASE,
   IMG,
@@ -18,17 +19,21 @@ import "./App.css";
 
 export default function CaseStudyPage() {
   const { slug } = useParams();
+  const lenis = useLenis();
   const [theme, setTheme] = useTheme();
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const [readMode] = useReadMode();
   const study = caseStudies.find((s) => s.slug === slug);
 
-  // Lenis removed — native scrolling matches the OS momentum curve, which is
-  // what a hiring manager's trackpad expects.
+  // React Router doesn't reset scroll position on client-side navigation —
+  // jump to the top of the new case study immediately (no easing) whenever
+  // the slug changes, going through Lenis so its internal position stays
+  // in sync with the real scroll offset.
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug]);
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo(0, 0);
+  }, [slug, lenis]);
 
   // Keep the document title in sync — recruiters bookmark and share these.
   useEffect(() => {

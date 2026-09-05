@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { ArrowDown, ArrowUp, ArrowUpRight, Check, Menu, Minus, Plus, Send } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import { useLenis } from "lenis/react";
 import {
   CountUp,
   EASE,
@@ -390,6 +391,7 @@ function ContactForm() {
    ======================================================================== */
 
 export default function App() {
+  const lenis = useLenis();
   const [theme, setTheme] = useTheme();
   const [menu, setMenu] = useState(false);
   const [openOffer, setOpenOffer] = useState(null);
@@ -419,20 +421,20 @@ export default function App() {
     return () => obs.disconnect();
   }, []);
 
-  /* Native smooth scrolling — Lenis was removed. Its momentum curve fought
-     the macOS trackpad and desynced from the OS, which is the single most
-     common complaint about portfolio sites on a hiring manager's laptop. */
+  /* Nav-link scrolling goes through Lenis (when it's ready) so a click feels
+     like the same momentum as a manual scroll, rather than the browser's
+     separate smooth-scroll curve. Falls back to native smooth scroll if
+     Lenis hasn't mounted yet. */
   const go = useCallback((id) => {
     setMenu(false);
-    if (id === "top") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    const el = document.getElementById(id);
-    if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 90;
-    window.scrollTo({ top, behavior: "smooth" });
-  }, []);
+    const top = id === "top" ? 0 : (() => {
+      const el = document.getElementById(id);
+      return el ? el.getBoundingClientRect().top + window.scrollY - 90 : null;
+    })();
+    if (top === null) return;
+    if (lenis) lenis.scrollTo(top, { duration: 1.2 });
+    else window.scrollTo({ top, behavior: "smooth" });
+  }, [lenis]);
 
   /* Menu: lock the page, close on Escape */
   useEffect(() => {

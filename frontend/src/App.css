@@ -109,10 +109,9 @@
 
 html { -webkit-text-size-adjust: 100%; }
 
-/* Native scrolling. Lenis was removed — its momentum curve desynced from the
-   macOS trackpad, which is the machine most of this audience is on. */
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Lenis (index.js) owns smooth scrolling — CSS scroll-behavior:smooth is
+   deliberately left off here so the two don't double-smooth against each
+   other on the rare raw scroll call that bypasses Lenis's own API. */
 
 body {
   margin: 0;
