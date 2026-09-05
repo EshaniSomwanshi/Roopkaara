@@ -52,7 +52,7 @@ export default function AvatarHero({ theme = "paper" }) {
           <div className="hero-badge-row">
             <span className="avail-badge">
               <span className="avail-pulse" />
-              Available for product design roles
+              Hire me on your team
             </span>
             <span className="hero-location-pill">San Francisco, CA · Healthcare · AI · Systems</span>
           </div>

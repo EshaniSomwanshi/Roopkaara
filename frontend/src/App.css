@@ -615,42 +615,6 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
   100% { transform: scaleX(0); transform-origin: right; }
 }
 
-/* ---------- proof strip ---------- */
-.proof-strip {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 2.4rem 0;
-  background: var(--bg);
-}
-.proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-.proof-item { border-left: 1px solid var(--line); padding-left: 1.3rem; }
-.proof-item:first-child { border-left: none; padding-left: 0; }
-.proof-value {
-  font-family: var(--font-display);
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-  font-weight: 600;
-  letter-spacing: -.028em;
-  color: var(--accent-strong);
-}
-.proof-label { margin-top: .35rem; font-size: .88rem; line-height: 1.45; }
-.proof-method {
-  margin-top: .5rem;
-  font-family: var(--font-mono);
-  font-size: .6rem;
-  letter-spacing: .04em;
-  line-height: 1.5;
-  color: var(--muted);
-  opacity: .7;
-}
-.proof-context {
-  margin-top: .2rem;
-  font-family: var(--font-mono);
-  font-size: .72rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .05em;
-}
-
 /* ---------- section scaffold ---------- */
 .section {
   padding: clamp(4.5rem, 9vw, 7.5rem) 0;
@@ -1361,8 +1325,6 @@ figcaption {
   .frag-eyeai { width: 78%; right: -6%; top: 0; }
   .frag-myo { width: 46%; left: -4%; top: 30%; }
   .frag-tvl { width: 26%; right: 2%; top: auto; bottom: -2%; }
-  .proof-grid { grid-template-columns: repeat(2, 1fr); row-gap: 2rem; }
-  .proof-item:nth-child(3) { border-left: none; padding-left: 0; }
   .lead-body { grid-template-columns: 1fr; align-items: start; }
   .case { grid-template-columns: 1fr; }
   .case-rail { position: static; }
@@ -1390,7 +1352,6 @@ figcaption {
   .frag-eyeai { width: 94%; right: -8%; top: 2%; }
   .frag-myo { width: 58%; left: -6%; top: auto; bottom: 4%; }
   .frag-tvl { width: 30%; right: 0; top: auto; bottom: -2%; }
-  .proof-grid { grid-template-columns: 1fr 1fr; }
   .impact-grid { grid-template-columns: 1fr 1fr; }
   .about-facts { grid-template-columns: 1fr; }
   .chapter-art figure { max-width: 100%; }
@@ -1824,10 +1785,6 @@ figcaption {
 .summary { line-height: 1.68; }
 .lede { line-height: 1.62; }
 
-@media (max-width: 720px) {
-  .proof-grid { grid-template-columns: repeat(2, 1fr); }
-  .proof-item:nth-child(3) { border-left: none; padding-left: 0; }
-}
 
 /* ---------- back to top (sticky) ---------- */
 .back-to-top {

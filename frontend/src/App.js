@@ -33,17 +33,6 @@ import Assemble from "./components/devices/Assemble";
    Content
    ======================================================================== */
 
-/* Four numbers, top of page. Each carries how it was measured — a metric
-   without a method reads as decoration.
-   TODO(Eshani): confirm each `method` string matches what you can defend
-   in an interview. Do not ship a method you can't explain. */
-const proof = [
-  [30, "%", "Higher weekly engagement", "OptraHealth", "Post-launch vs. prior release"],
-  [28, "%", "Higher tutorial completion", "OptraHealth", "Across 20+ usability sessions"],
-  [20, "%", "Faster clinician diagnostic tasks", "Onward Technologies", "Timed task testing, pre/post"],
-  [25, "%", "Higher task completion", "Rebecca Everlene Trust Co.", "Pre/post content restructure"],
-];
-
 /* TODO(Eshani): fill in the subpoints for each offering (bullet lists).
    Left empty for now per your notes — an accordion with nothing inside just
    shows a "Detail coming soon" line. */
@@ -599,24 +588,10 @@ export default function App() {
                     go("contact");
                   }}
                 >
-                  Get in touch <ArrowDown size={16} />
+                  Hire Me <ArrowDown size={16} />
                 </a>
               </Magnetic>
             </div>
-          </div>
-        </section>
-
-        {/* ---------- proof strip ---------- */}
-        <section className="proof-strip" aria-label="Selected outcomes">
-          <div className="container proof-grid">
-            {proof.map(([v, s, label, ctx, method]) => (
-              <div className="proof-item" key={label}>
-                <div className="proof-value"><CountUp value={v} suffix={s} /></div>
-                <div className="proof-label">{label}</div>
-                <div className="proof-context">{ctx}</div>
-                <div className="proof-method">{method}</div>
-              </div>
-            ))}
           </div>
         </section>
 
