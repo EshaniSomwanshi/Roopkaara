@@ -564,9 +564,13 @@ export default function App() {
         {/* ---------- design ---------- */}
         <section className="section" id="design">
           <div className="container hero-content-bottom">
-            <h1 className="hero-main-title">
-              Designing clarity into complex systems.
-            </h1>
+            <SplitText
+              as="h1"
+              className="hero-main-title"
+              text="Designing clarity into complex systems."
+              testId="design-heading"
+              delay={0.05}
+            />
 
             <p className="hero-lede-text">
               I work across healthcare, AI, and enterprise products, using research,
