@@ -256,12 +256,12 @@ export function ThemeSwitch({ theme, setTheme, mobile = false }) {
   const active = THEMES.find((t) => t.id === theme) || THEMES[0];
   const shown = expanded ? [active, ...THEMES.filter((t) => t.id !== theme)] : [active];
 
-  return (
+  const pill = (
     <motion.div
       ref={ref}
       layout
       transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 38, mass: 0.7 }}
-      className={`theme-switch${mobile ? " theme-switch-mobile" : ""}${expanded ? " is-expanded" : ""}`}
+      className={`theme-switch${mobile ? " theme-switch-mobile" : " theme-switch-floating"}${expanded ? " is-expanded" : ""}`}
       role="group"
       aria-label="Colour theme"
       data-testid={mobile ? "theme-switch-mobile" : "theme-switch"}
@@ -297,6 +297,28 @@ export function ThemeSwitch({ theme, setTheme, mobile = false }) {
         ))}
       </AnimatePresence>
     </motion.div>
+  );
+
+  if (mobile) return pill;
+
+  // Desktop: the pill floats absolutely, anchored to its own right edge, so
+  // expanding/collapsing never reflows the rest of the nav row (wordmark,
+  // links) and always grows leftward instead of pushing its right edge out.
+  // This invisible spacer reserves the collapsed pill's real footprint
+  // (measured from its own rendered markup, not a guessed pixel value) so
+  // the surrounding flex layout sees a constant-width slot at all times.
+  return (
+    <span className="theme-switch-anchor">
+      <span className="theme-switch-spacer" aria-hidden="true">
+        <span className="theme-switch">
+          <span className="theme-dot" data-theme-value={active.id} aria-pressed="true">
+            <span className="theme-swatch" />
+            <span className="theme-name">{active.label}</span>
+          </span>
+        </span>
+      </span>
+      {pill}
+    </span>
   );
 }
 

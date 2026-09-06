@@ -327,6 +327,18 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 .header-right { display: flex; align-items: center; gap: 1.2rem; }
 
 /* theme switch */
+/* Reserves the collapsed pill's real footprint in the flex layout so the
+   floating pill below can expand/collapse without ever reflowing sibling
+   nav items (wordmark, links). */
+.theme-switch-anchor { position: relative; display: inline-flex; align-items: center; }
+.theme-switch-spacer { visibility: hidden; pointer-events: none; }
+.theme-switch-floating {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+}
+
 .theme-switch {
   display: flex;
   align-items: center;
