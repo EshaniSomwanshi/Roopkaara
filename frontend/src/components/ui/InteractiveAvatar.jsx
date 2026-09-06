@@ -397,6 +397,21 @@ export default function InteractiveAvatar({
           </motion.g>
         </motion.g>
 
+        {/* Fixed hair backing behind the neck — deliberately NOT attached to
+            headSlideX. Layers 1/3/4/5 all ride the head-slide together, but
+            the neck below is stationary, so on every slide the moving hair
+            pulls away from one side of the (fixed) neck and opens a bare
+            gap. This static panel sits behind the neck at all times, wider
+            than the neck on both sides by more than the slide's max travel,
+            so hair always shows there regardless of head position — as if
+            the hair falls straight down behind her, not just from the head. */}
+        <path
+          d="M220 185 C165 185 148 220 148 270 L148 410
+             C148 440 175 455 220 455 C265 455 292 440 292 410
+             L292 270 C292 220 275 185 220 185 Z"
+          fill="url(#ia-bun)"
+        />
+
         {/* ---------- LAYER 2 — NECK, SHOULDERS, KURTA ---------- */}
         <g id="ia-body">
           <path
