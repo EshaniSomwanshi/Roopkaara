@@ -182,20 +182,15 @@ export default function InteractiveAvatar({
     <div
       ref={containerRef}
       className={`interactive-avatar-wrap ${className}`}
-      onClick={handleClick}
-      onMouseEnter={() => setIsHappy(true)}
-      onMouseLeave={() => setIsHappy(false)}
       style={{
         position: "relative",
         width: "100%",
         maxWidth: `${size}px`,
         aspectRatio: "440 / 520",
         margin: "0 auto",
-        cursor: "pointer",
         userSelect: "none",
         perspective: "1100px"
       }}
-      data-cursor="Click me"
       data-testid="interactive-avatar"
     >
       {/* Speech bubble — pops up just outside the avatar's box (never over
@@ -324,16 +319,28 @@ export default function InteractiveAvatar({
              transform so they move as a single rigid figure and never drift
              apart from each other; only the details nested inside (hair-lock
              sway, eye tracking, jhumka swing) move independently. ---------- */}
+        {/* Interactive handlers live here, not on the wrapping <div> — an
+            SVG <g> has no paint of its own, so it only receives hover/click
+            when the pointer actually lands on a child shape (visiblePainted
+            default). Putting them on the outer div instead made the whole
+            rectangular bounding box hoverable, including transparent
+            padding around the figure, which read as "hover works outside
+            her" — this fixes it to the drawn silhouette only. */}
         <motion.g
+          onClick={handleClick}
+          onMouseEnter={() => setIsHappy(true)}
+          onMouseLeave={() => setIsHappy(false)}
+          data-cursor="Click me"
           style={
             reduced
-              ? {}
+              ? { cursor: "pointer" }
               : {
                   rotateY: figureRotateY,
                   rotateX: figureRotateX,
                   x: figureX,
                   y: figureY,
-                  transformOrigin: "220px 270px"
+                  transformOrigin: "220px 270px",
+                  cursor: "pointer"
                 }
           }
         >
@@ -352,18 +359,24 @@ export default function InteractiveAvatar({
             animate={reduced ? undefined : { rotate: [-1.6, 1.4, -1.6] }}
             transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
           >
+            {/* Outer edge widens once, smoothly, then rounds into a blunt
+                full end (per the reference's rounded outline) instead of
+                pinching in and out to a tapered point. */}
             <path
-              d="M220 70 C250 68 280 78 298 108 C316 138 318 178 306 214
-                 C296 244 310 268 322 300 C332 328 328 358 314 384
-                 C320 410 332 434 322 460 C316 478 296 486 284 470
-                 C274 456 280 434 270 410 C260 384 254 356 258 326
-                 C246 296 232 268 240 238 C226 206 224 172 222 140
-                 C220 116 218 92 220 70 Z"
+              d="M220 70 C252 68 282 80 300 112
+                 C316 144 316 184 308 222
+                 C302 256 314 288 322 322
+                 C330 354 324 388 306 416
+                 C294 434 278 446 260 442
+                 C268 424 262 398 266 368
+                 C270 334 256 302 262 270
+                 C248 238 236 206 240 174
+                 C226 140 222 106 220 70 Z"
               fill="url(#ia-bun)"
             />
             <path
-              d="M232 84 C266 96 288 128 288 168 C288 202 274 228 280 258
-                 C286 292 302 320 300 352 C298 378 288 402 292 426"
+              d="M234 84 C268 98 290 130 290 170 C290 204 276 230 282 260
+                 C288 292 304 318 300 348 C296 374 284 396 288 418"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.6"
               strokeLinecap="round"
@@ -377,17 +390,20 @@ export default function InteractiveAvatar({
             transition={{ duration: 8.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           >
             <path
-              d="M220 70 C190 68 160 78 142 108 C124 138 122 178 134 214
-                 C144 244 130 268 118 300 C108 328 112 358 126 384
-                 C120 410 108 434 118 460 C124 478 144 486 156 470
-                 C166 456 160 434 170 410 C180 384 186 356 182 326
-                 C194 296 208 268 200 238 C214 206 216 172 218 140
-                 C220 116 222 92 220 70 Z"
+              d="M220 70 C188 68 158 80 140 112
+                 C124 144 124 184 132 222
+                 C138 256 126 288 118 322
+                 C110 354 116 388 134 416
+                 C146 434 162 446 180 442
+                 C172 424 178 398 174 368
+                 C170 334 184 302 178 270
+                 C192 238 204 206 200 174
+                 C214 140 218 106 220 70 Z"
               fill="url(#ia-bun)"
             />
             <path
-              d="M208 84 C174 96 152 128 152 168 C152 202 166 228 160 258
-                 C154 292 138 320 140 352 C142 378 152 402 148 426"
+              d="M206 84 C172 98 150 130 150 170 C150 204 164 230 158 260
+                 C152 292 136 318 140 348 C144 374 156 396 152 418"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.6"
               strokeLinecap="round"
@@ -784,8 +800,8 @@ export default function InteractiveAvatar({
             <path
               d="M172 136 C152 160 128 200 120 248
                  C112 288 82 314 68 356
-                 C58 388 78 410 66 436
-                 C58 454 90 468 118 452
+                 C58 390 68 416 64 442
+                 C60 462 92 470 122 456
                  C126 440 138 414 148 388
                  C158 358 170 322 165 284
                  C160 248 172 208 184 176
@@ -801,6 +817,18 @@ export default function InteractiveAvatar({
               fill="none"
               opacity="0.6"
             />
+            {/* Seam line — traces this lock's own outer edge so it reads as
+                a visibly separate section (the curtain bangs) laid over the
+                back hair mass, running from the part down to the shoulder. */}
+            <path
+              d="M172 136 C152 160 128 200 120 248
+                 C112 288 82 314 68 356"
+              stroke="#15161D"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.5"
+            />
           </motion.g>
 
           {/* --- RIGHT, LONG LOCK --- */}
@@ -812,8 +840,8 @@ export default function InteractiveAvatar({
             <path
               d="M268 136 C288 160 312 200 320 248
                  C328 288 358 314 372 356
-                 C382 388 362 410 374 436
-                 C382 454 350 468 322 452
+                 C382 390 372 416 376 442
+                 C380 462 348 470 318 456
                  C314 440 302 414 292 388
                  C282 358 270 322 275 284
                  C280 248 268 208 256 176
@@ -828,6 +856,15 @@ export default function InteractiveAvatar({
               strokeLinecap="round"
               fill="none"
               opacity="0.6"
+            />
+            <path
+              d="M268 136 C288 160 312 200 320 248
+                 C328 288 358 314 372 356"
+              stroke="#15161D"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.5"
             />
           </motion.g>
 
