@@ -29,7 +29,9 @@ export default function InteractiveAvatar({
   const [isBlinking, setIsBlinking] = useState(false);
   const [isWinking, setIsWinking] = useState(false);
   const [isHappy, setIsHappy] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const [speechBubble, setSpeechBubble] = useState("");
+  const [bubblePos, setBubblePos] = useState({ top: 8, left: 50 });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -154,6 +156,10 @@ export default function InteractiveAvatar({
       "Designing with clarity & craft 💡",
       "Let's build something great 🚀"
     ];
+    setBubblePos({
+      top: 10 + Math.random() * 50,
+      left: 20 + Math.random() * 60
+    });
     setSpeechBubble(lines[Math.floor(Math.random() * lines.length)]);
     setTimeout(() => {
       setIsWinking(false);
@@ -168,8 +174,14 @@ export default function InteractiveAvatar({
       ref={containerRef}
       className={`interactive-avatar-wrap ${className}`}
       onClick={handleClick}
-      onMouseEnter={() => setIsHappy(true)}
-      onMouseLeave={() => setIsHappy(false)}
+      onMouseEnter={() => {
+        setIsHappy(true);
+        setIsHovering(true);
+      }}
+      onMouseLeave={() => {
+        setIsHappy(false);
+        setIsHovering(false);
+      }}
       style={{
         position: "relative",
         width: "100%",
@@ -180,21 +192,53 @@ export default function InteractiveAvatar({
         userSelect: "none",
         perspective: "1100px"
       }}
-      title="Click me!"
+      aria-label="Click me!"
       data-testid="interactive-avatar"
     >
-      {/* Speech bubble */}
+      {/* Custom hover hint — a native title="" tooltip is desktop/OS-styled
+          and slow to appear (and doesn't show at all on touch), so this
+          renders our own instantly on hover, scoped to just this avatar. */}
+      {isHovering && !speechBubble && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          className="avatar-hover-hint"
+          style={{
+            position: "absolute",
+            top: "-30px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "var(--ink, #14130F)",
+            color: "var(--bg, #FFFFFF)",
+            padding: "5px 12px",
+            borderRadius: "14px",
+            fontFamily: "var(--font-mono, monospace)",
+            fontSize: "0.7rem",
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+            zIndex: 25,
+            pointerEvents: "none"
+          }}
+        >
+          Click me!
+        </motion.div>
+      )}
+
+      {/* Speech bubble — lands at a random spot inside the avatar's box on
+          each click, for a bit of playful unpredictability. */}
       {speechBubble && (
         <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -6, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
           className="avatar-speech-bubble"
           style={{
             position: "absolute",
-            top: "-34px",
-            left: "50%",
-            transform: "translateX(-50%)",
+            top: `${bubblePos.top}%`,
+            left: `${bubblePos.left}%`,
+            transform: "translate(-50%, -50%)",
             background: "var(--card, #FFFFFF)",
             color: "var(--ink, #14130F)",
             padding: "8px 16px",
@@ -210,19 +254,6 @@ export default function InteractiveAvatar({
           }}
         >
           {speechBubble}
-          <div
-            style={{
-              position: "absolute",
-              bottom: "-6px",
-              left: "50%",
-              transform: "translateX(-50%) rotate(45deg)",
-              width: "12px",
-              height: "12px",
-              background: "var(--card, #FFFFFF)",
-              borderRight: "1px solid var(--line, #E5E7EB)",
-              borderBottom: "1px solid var(--line, #E5E7EB)"
-            }}
-          />
         </motion.div>
       )}
 
@@ -345,39 +376,35 @@ export default function InteractiveAvatar({
             animate={reduced ? undefined : { rotate: [-1.6, 1.4, -1.6] }}
             transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
           >
+            {/* One continuous mass, not a thin ribbon: the outer edge widens
+                and tapers smoothly (no pinch-then-bulge) for real volume,
+                and the inner edge hugs right along the ear/neck/shoulder
+                line the whole way down — since this layer sits behind the
+                head/neck/kurta, running the inner edge generously close to
+                (even slightly past) their boundary is free and guarantees
+                no gap of bare background shows between hair and body. */}
             <path
-              d="M220 70 C256 66 292 80 312 114 C332 148 334 190 318 228
-                 C304 258 320 282 336 312 C350 338 346 368 328 392
-                 C338 416 352 438 338 462 C328 480 306 488 292 472
-                 C280 458 288 436 276 412 C264 388 256 360 262 330
-                 C248 300 232 274 244 244 C228 210 224 176 222 142
-                 C220 118 218 94 220 70 Z"
+              d="M220 70 C248 66 274 72 292 90
+                 C310 108 322 138 320 172
+                 C318 202 330 226 340 254
+                 C350 282 348 316 338 346
+                 C330 374 316 400 296 420
+                 C280 436 262 440 252 428
+                 C260 408 258 386 266 366
+                 C274 346 268 322 276 300
+                 C260 270 264 240 270 210
+                 C276 188 268 150 250 110
+                 C240 90 228 76 220 70 Z"
               fill="url(#ia-bun)"
             />
-            {/* Loose strand splitting off the main mass, mid-length — breaks
-                the silhouette into more than one piece so it reads as hair
-                let down, not a single clump. */}
             <path
-              d="M300 260 C324 280 336 312 328 344 C322 368 306 384 296 372
-                 C304 352 306 328 296 302 C290 282 292 268 300 260 Z"
-              fill="url(#ia-bun)"
-            />
-            <path
-              d="M232 84 C270 98 296 132 296 172 C296 208 280 236 288 268
-                 C296 302 314 330 310 362 C306 388 294 410 298 432"
+              d="M270 84 C300 100 316 130 314 168 C312 202 326 230 336 262
+                 C344 290 340 322 328 352 C318 378 302 402 292 424"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.6"
               strokeLinecap="round"
               fill="none"
               opacity="0.45"
-            />
-            <path
-              d="M320 272 C330 292 328 316 316 336"
-              stroke="url(#ia-hairLite)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.4"
             />
           </motion.g>
           <motion.g
@@ -386,35 +413,27 @@ export default function InteractiveAvatar({
             transition={{ duration: 8.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           >
             <path
-              d="M220 70 C184 66 148 80 128 114 C108 148 106 190 122 228
-                 C136 258 120 282 104 312 C90 338 94 368 112 392
-                 C102 416 88 438 102 462 C112 480 134 488 148 472
-                 C160 458 152 436 164 412 C176 388 184 360 178 330
-                 C192 300 208 274 196 244 C212 210 216 176 218 142
-                 C220 118 222 94 220 70 Z"
+              d="M220 70 C192 66 166 72 148 90
+                 C130 108 118 138 120 172
+                 C122 202 110 226 100 254
+                 C90 282 92 316 102 346
+                 C110 374 124 400 144 420
+                 C160 436 178 440 188 428
+                 C180 408 182 386 174 366
+                 C166 346 172 322 164 300
+                 C180 270 176 240 170 210
+                 C164 188 172 150 190 110
+                 C200 90 212 76 220 70 Z"
               fill="url(#ia-bun)"
             />
             <path
-              d="M140 260 C116 280 104 312 112 344 C118 368 134 384 144 372
-                 C136 352 134 328 144 302 C150 282 148 268 140 260 Z"
-              fill="url(#ia-bun)"
-            />
-            <path
-              d="M208 84 C170 98 144 132 144 172 C144 208 160 236 152 268
-                 C144 302 126 330 130 362 C134 388 146 410 142 432"
+              d="M170 84 C140 100 124 130 126 168 C128 202 114 230 104 262
+                 C96 290 100 322 112 352 C122 378 138 402 148 424"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.6"
               strokeLinecap="round"
               fill="none"
               opacity="0.45"
-            />
-            <path
-              d="M120 272 C110 292 112 316 124 336"
-              stroke="url(#ia-hairLite)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.4"
             />
           </motion.g>
         </motion.g>
@@ -617,7 +636,7 @@ export default function InteractiveAvatar({
                 fill="none"
                 opacity="0.8"
               />
-              {isBlinking && !isWinking && (
+              {eyesClosed && (
                 <>
                   <ellipse cx="253" cy="211" rx="24" ry="18" fill="url(#ia-skin)" />
                   <path
