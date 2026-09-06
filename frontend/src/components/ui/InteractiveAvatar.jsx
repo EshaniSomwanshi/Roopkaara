@@ -50,6 +50,13 @@ export default function InteractiveAvatar({
   const earringRightRotate = useTransform(smoothX, [-1, 1], [-12, 8]);
   const browY = useTransform(smoothY, [-1, 1], [-2, 1.2]);
 
+  // Bharatanatyam-style neck slide — the head glides side to side on a level
+  // plane (pure horizontal translation, no tilt) as the cursor moves left to
+  // right, layered on top of the whole-figure motion. Kept within the neck's
+  // visible width (~194–246 at the jaw line) so the head never slides past
+  // the neck shape underneath it.
+  const headSlideX = useTransform(smoothX, [-1, 1], [-11, 11]);
+
   const [leftPupil, setLeftPupil] = useState({ x: 0, y: 0 });
   const [rightPupil, setRightPupil] = useState({ x: 0, y: 0 });
 
@@ -424,7 +431,7 @@ export default function InteractiveAvatar({
         </g>
 
         {/* ---------- LAYER 3 — HEAD, FEATURES, EYES ---------- */}
-        <g id="ia-head">
+        <motion.g id="ia-head" style={reduced ? {} : { x: headSlideX }}>
           {/* Ears */}
           <path d="M150 208 C138 206 133 220 137 234 C140 244 147 250 153 248 Z" fill="url(#ia-skin)" />
           <path
@@ -649,7 +656,7 @@ export default function InteractiveAvatar({
               </>
             )}
           </g>
-        </g>
+        </motion.g>
 
         {/* ---------- LAYER 4 — SWEPT-BACK CROWN + FOUR FACE-FRAMING WAVES ---------- */}
         <g>
