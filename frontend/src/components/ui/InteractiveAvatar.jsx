@@ -346,22 +346,38 @@ export default function InteractiveAvatar({
             transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
           >
             <path
-              d="M220 70 C250 68 280 78 298 108 C316 138 318 178 306 214
-                 C296 244 310 268 322 300 C332 328 328 358 314 384
-                 C320 410 332 434 322 460 C316 478 296 486 284 470
-                 C274 456 280 434 270 410 C260 384 254 356 258 326
-                 C246 296 232 268 240 238 C226 206 224 172 222 140
-                 C220 116 218 92 220 70 Z"
+              d="M220 70 C256 66 292 80 312 114 C332 148 334 190 318 228
+                 C304 258 320 282 336 312 C350 338 346 368 328 392
+                 C338 416 352 438 338 462 C328 480 306 488 292 472
+                 C280 458 288 436 276 412 C264 388 256 360 262 330
+                 C248 300 232 274 244 244 C228 210 224 176 222 142
+                 C220 118 218 94 220 70 Z"
+              fill="url(#ia-bun)"
+            />
+            {/* Loose strand splitting off the main mass, mid-length — breaks
+                the silhouette into more than one piece so it reads as hair
+                let down, not a single clump. */}
+            <path
+              d="M300 260 C324 280 336 312 328 344 C322 368 306 384 296 372
+                 C304 352 306 328 296 302 C290 282 292 268 300 260 Z"
               fill="url(#ia-bun)"
             />
             <path
-              d="M232 84 C266 96 288 128 288 168 C288 202 274 228 280 258
-                 C286 292 302 320 300 352 C298 378 288 402 292 426"
+              d="M232 84 C270 98 296 132 296 172 C296 208 280 236 288 268
+                 C296 302 314 330 310 362 C306 388 294 410 298 432"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.6"
               strokeLinecap="round"
               fill="none"
               opacity="0.45"
+            />
+            <path
+              d="M320 272 C330 292 328 316 316 336"
+              stroke="url(#ia-hairLite)"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.4"
             />
           </motion.g>
           <motion.g
@@ -370,30 +386,48 @@ export default function InteractiveAvatar({
             transition={{ duration: 8.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           >
             <path
-              d="M220 70 C190 68 160 78 142 108 C124 138 122 178 134 214
-                 C144 244 130 268 118 300 C108 328 112 358 126 384
-                 C120 410 108 434 118 460 C124 478 144 486 156 470
-                 C166 456 160 434 170 410 C180 384 186 356 182 326
-                 C194 296 208 268 200 238 C214 206 216 172 218 140
-                 C220 116 222 92 220 70 Z"
+              d="M220 70 C184 66 148 80 128 114 C108 148 106 190 122 228
+                 C136 258 120 282 104 312 C90 338 94 368 112 392
+                 C102 416 88 438 102 462 C112 480 134 488 148 472
+                 C160 458 152 436 164 412 C176 388 184 360 178 330
+                 C192 300 208 274 196 244 C212 210 216 176 218 142
+                 C220 118 222 94 220 70 Z"
               fill="url(#ia-bun)"
             />
             <path
-              d="M208 84 C174 96 152 128 152 168 C152 202 166 228 160 258
-                 C154 292 138 320 140 352 C142 378 152 402 148 426"
+              d="M140 260 C116 280 104 312 112 344 C118 368 134 384 144 372
+                 C136 352 134 328 144 302 C150 282 148 268 140 260 Z"
+              fill="url(#ia-bun)"
+            />
+            <path
+              d="M208 84 C170 98 144 132 144 172 C144 208 160 236 152 268
+                 C144 302 126 330 130 362 C134 388 146 410 142 432"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.6"
               strokeLinecap="round"
               fill="none"
               opacity="0.45"
             />
+            <path
+              d="M120 272 C110 292 112 316 124 336"
+              stroke="url(#ia-hairLite)"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.4"
+            />
           </motion.g>
         </motion.g>
 
         {/* ---------- LAYER 2 — NECK, SHOULDERS, KURTA ---------- */}
         <g id="ia-body">
+          {/* Neck silhouette retraces the kurta collar's own notch curve
+              (158,378)-(196,354)-(244,354)-(282,378) exactly, so the two
+              shapes share one boundary line with no gap or seam between
+              them — reads as one connected form instead of two glued-on
+              pieces, even at rest. */}
           <path
-            d="M194 258 L180 360 C194 374 246 374 260 360 L246 258 Z"
+            d="M194 258 C188 300 170 344 158 378 C176 371 190 365 196 354 L244 354 C250 365 264 371 282 378 C270 344 252 300 246 258 Z"
             fill="url(#ia-neck)"
           />
           <path d="M192 270 C204 295 236 295 248 270 C242 298 198 298 192 270 Z" fill="#A9673C" opacity="0.38" />
@@ -712,14 +746,21 @@ export default function InteractiveAvatar({
             transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
           >
             <path
-              d="M172 136 C152 160 138 200 140 244 C142 284 122 312 116 352
-                 C112 380 128 404 118 432 C112 452 128 466 140 452
-                 C150 440 144 414 152 388 C160 358 172 322 166 284
-                 C160 248 172 208 184 176 C190 160 182 146 172 136 Z"
+              d="M172 136 C148 156 128 192 134 234 C140 270 116 296 106 334
+                 C98 364 118 392 104 420 C94 444 116 462 132 448
+                 C146 434 136 404 148 376 C160 346 176 306 166 268
+                 C156 230 172 192 188 162 C196 148 184 144 172 136 Z"
+              fill="url(#ia-hairFront)"
+            />
+            {/* Thin split wisp near the tip — one long lock reading as two
+                loose strands instead of a single flat ribbon. */}
+            <path
+              d="M110 340 C90 360 88 388 100 412 C108 428 122 424 118 404
+                 C114 384 108 362 110 340 Z"
               fill="url(#ia-hairFront)"
             />
             <path
-              d="M164 150 C148 182 138 220 142 258 C146 292 128 316 122 350"
+              d="M162 150 C144 184 132 224 138 264 C144 298 122 322 114 356"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.3"
               strokeLinecap="round"
@@ -735,14 +776,19 @@ export default function InteractiveAvatar({
             transition={{ duration: 6.9, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
           >
             <path
-              d="M268 136 C288 160 302 200 300 244 C298 284 318 312 324 352
-                 C328 380 312 404 322 432 C328 452 312 466 300 452
-                 C290 440 296 414 288 388 C280 358 268 322 274 284
-                 C280 248 268 208 256 176 C250 160 258 146 268 136 Z"
+              d="M268 136 C292 156 312 192 306 234 C300 270 324 296 334 334
+                 C342 364 322 392 336 420 C346 444 324 462 308 448
+                 C294 434 304 404 292 376 C280 346 264 306 274 268
+                 C284 230 268 192 252 162 C244 148 256 144 268 136 Z"
               fill="url(#ia-hairFront)"
             />
             <path
-              d="M276 150 C292 182 302 220 298 258 C294 292 312 316 318 350"
+              d="M330 340 C350 360 352 388 340 412 C332 428 318 424 322 404
+                 C326 384 332 362 330 340 Z"
+              fill="url(#ia-hairFront)"
+            />
+            <path
+              d="M278 150 C296 184 308 224 302 264 C296 298 318 322 326 356"
               stroke="url(#ia-hairLite)"
               strokeWidth="2.3"
               strokeLinecap="round"
