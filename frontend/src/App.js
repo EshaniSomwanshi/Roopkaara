@@ -1034,26 +1034,13 @@ export default function App() {
                     className="btn btn-secondary"
                     data-testid="contact-linkedin-link"
                   >
-                    View LinkedIn
+                    View LinkedIn <ArrowUpRight size={15} />
                   </a>
                 </Magnetic>
               </div>
             </Reveal>
             <Reveal className="contact-side" testId="contact-side">
               <ContactForm />
-              <div className="contact-links">
-                <a href="mailto:eshani.swdesign@gmail.com" data-testid="contact-links-email">
-                  <span>Email</span><span>eshani.swdesign@gmail.com</span>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/eshani-somwanshi/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid="contact-links-linkedin"
-                >
-                  <span>LinkedIn</span><span>/in/eshani-somwanshi</span>
-                </a>
-              </div>
             </Reveal>
           </div>
         </section>

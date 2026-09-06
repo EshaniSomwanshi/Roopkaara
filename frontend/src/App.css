@@ -1063,7 +1063,7 @@ figcaption {
 }
 .marquee span em { font-family: var(--font-serif); font-style: italic; color: var(--accent); }
 
-.contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 4vw, 3rem); align-items: end; }
+.contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 4vw, 3rem); align-items: center; }
 .contact h2 {
   font-family: var(--font-display);
   font-size: clamp(2.1rem, 4.3vw, 3.7rem);
@@ -1127,18 +1127,6 @@ figcaption {
 }
 .form-sent b { color: var(--accent); display: block; margin-bottom: .6rem; font-weight: 500; }
 
-.contact-links { display: flex; flex-direction: column; gap: .9rem; font-family: var(--font-mono); font-size: .88rem; }
-.contact-links a {
-  border-bottom: 1px solid var(--inv-line);
-  padding-bottom: .85rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 44px;
-  align-items: center;
-  transition: color var(--dur-fast) var(--ease-state), border-color var(--dur-fast) var(--ease-state);
-}
-.contact-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
 /* ---------- footer ---------- */
 .site-footer {
