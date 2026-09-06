@@ -421,19 +421,19 @@ export default function InteractiveAvatar({
 
         {/* ---------- LAYER 2 — NECK, SHOULDERS, KURTA ---------- */}
         <g id="ia-body">
-          {/* Neck silhouette retraces the kurta collar's own notch curve
-              (158,378)-(196,354)-(244,354)-(282,378) exactly, so the two
-              shapes share one boundary line with no gap or seam between
-              them — reads as one connected form instead of two glued-on
-              pieces, even at rest. */}
           <path
-            d="M194 258 C188 300 170 344 158 378 C176 371 190 365 196 354 L244 354 C250 365 264 371 282 378 C270 344 252 300 246 258 Z"
+            d="M194 258 L180 360 C194 374 246 374 260 360 L246 258 Z"
             fill="url(#ia-neck)"
           />
           <path d="M192 270 C204 295 236 295 248 270 C242 298 198 298 192 270 Z" fill="#A9673C" opacity="0.38" />
 
+          {/* Collar's opening edge now retraces the neck's own boundary
+              exactly — (180,360) to (260,360) via the same C194 374 246 374
+              curve the neck path uses — so collar and neck share one line
+              with no gap and no independent seam. The neck path itself is
+              untouched. */}
           <path
-            d="M60 520 C68 446 104 398 158 378 C176 371 190 365 196 354 L244 354 C250 365 264 371 282 378 C336 398 372 446 380 520 Z"
+            d="M60 520 C68 446 104 398 158 378 C167 371 174 365 180 360 C194 374 246 374 260 360 C266 365 273 371 282 378 C336 398 372 446 380 520 Z"
             fill="url(#ia-kurta)"
           />
           <path d="M60 520 C68 452 98 408 146 386 C126 424 116 470 112 520 Z" fill="#C9CFDC" opacity="0.22" />
