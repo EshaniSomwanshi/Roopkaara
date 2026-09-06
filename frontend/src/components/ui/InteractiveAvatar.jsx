@@ -56,12 +56,6 @@ export default function InteractiveAvatar({
   // visible width (~194–246 at the jaw line) so the head never slides past
   // the neck shape underneath it.
   const headSlideX = useTransform(smoothX, [-1, 1], [-11, 11]);
-  // The neck bridges a fully-sliding chin above and a stationary torso
-  // below — a real neck flexes partway to follow the head, so it moves at a
-  // fraction of the head's slide rather than staying rigidly fixed (which
-  // read as a disconnected seam) or matching it exactly (which would just
-  // move the seam down to where the neck meets the shoulders instead).
-  const neckSlideX = useTransform(headSlideX, (v) => v * 0.45);
 
   const [leftPupil, setLeftPupil] = useState({ x: 0, y: 0 });
   const [rightPupil, setRightPupil] = useState({ x: 0, y: 0 });
@@ -344,12 +338,8 @@ export default function InteractiveAvatar({
              layering used for painted hair. Hair is attached to the head, not
              the shoulders, so it rides along with the neck-slide (headSlideX)
              — otherwise the head glides out from under a stationary hairline
-             and covers/uncovers the face at the wrong spot. Scaled up
-             slightly (scaleX) — loose, let-down hair reads as fuller than
-             the shoulders it falls behind, so it keeps covering the body's
-             edges on both sides through the full range of the slide instead
-             of exposing a gap on whichever side it glides away from. */}
-        <motion.g style={reduced ? {} : { x: headSlideX, scaleX: 1.12, transformOrigin: "220px 250px" }}>
+             and covers/uncovers the face at the wrong spot. */}
+        <motion.g style={reduced ? {} : { x: headSlideX }}>
           <motion.g
             style={{ transformOrigin: "222px 78px" }}
             animate={reduced ? undefined : { rotate: [-1.6, 1.4, -1.6] }}
@@ -402,16 +392,11 @@ export default function InteractiveAvatar({
 
         {/* ---------- LAYER 2 — NECK, SHOULDERS, KURTA ---------- */}
         <g id="ia-body">
-          {/* Neck only — partial-slides with the head (neckSlideX) so it stays
-              visually connected to the chin above instead of reading as a
-              rigid, disconnected stub while everything above it glides. */}
-          <motion.g style={reduced ? {} : { x: neckSlideX }}>
-            <path
-              d="M194 258 L180 360 C194 374 246 374 260 360 L246 258 Z"
-              fill="url(#ia-neck)"
-            />
-            <path d="M192 270 C204 295 236 295 248 270 C242 298 198 298 192 270 Z" fill="#A9673C" opacity="0.38" />
-          </motion.g>
+          <path
+            d="M194 258 L180 360 C194 374 246 374 260 360 L246 258 Z"
+            fill="url(#ia-neck)"
+          />
+          <path d="M192 270 C204 295 236 295 248 270 C242 298 198 298 192 270 Z" fill="#A9673C" opacity="0.38" />
 
           <path
             d="M60 520 C68 446 104 398 158 378 C176 371 190 365 196 354 L244 354 C250 365 264 371 282 378 C336 398 372 446 380 520 Z"
