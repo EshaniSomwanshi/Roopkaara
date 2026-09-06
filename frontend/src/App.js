@@ -60,12 +60,17 @@ const tools = [
    myocircle-level13.png has the same problem (a single 700x2083 phone
    composite) but earns its spot on content, so it's capped with the "tall"
    flag below instead of being cut entirely — see .shot--tall in App.css. */
+/* Natural pixel dimensions (w, h) are included so the <img> can reserve its
+   aspect ratio before the lazy-loaded image downloads — without this, each
+   image collapses to 0 height until loaded, which shifts everything below
+   the gallery (About, Contact) down mid-scroll and throws off any in-flight
+   scrollTo animation targeting a section further down the page. */
 const shots = [
-  ["onward-1.png", "Onward's EYE AI product site hero: “Enhance your practice with AI technology.”", "Onward Technologies · EYE AI", "The site clinicians land on first"],
-  ["myocircle-interaction.png", "MyoCircle exercise screen with Zoe's congratulations card after a completed exercise, awarding points.", "OptraHealth · MyoCircle", "Zoe's encouragement moment, mid-exercise"],
-  ["travelogue-tripdetail.png", "Travelogue trip detail screen with people, map locations, and an itinerary hub.", "Travelogue", "One trip: people, places, and itinerary in one hub"],
-  ["myocircle-day1.png", "MyoCircle Day 1 exercise screen with a guided video, sets and reps tracking, and a Start Exercise button.", "OptraHealth · MyoCircle", "Where a session starts"],
-  ["myocircle-level13.png", "MyoCircle workout progress screen showing Level 13, 25% progress, and the Day 1 exercise video queue.", "OptraHealth · MyoCircle", "Progress and the exercise queue", true],
+  ["onward-1.png", "Onward's EYE AI product site hero: “Enhance your practice with AI technology.”", "Onward Technologies · EYE AI", "The site clinicians land on first", false, 504, 420],
+  ["myocircle-interaction.png", "MyoCircle exercise screen with Zoe's congratulations card after a completed exercise, awarding points.", "OptraHealth · MyoCircle", "Zoe's encouragement moment, mid-exercise", false, 1200, 481],
+  ["travelogue-tripdetail.png", "Travelogue trip detail screen with people, map locations, and an itinerary hub.", "Travelogue", "One trip: people, places, and itinerary in one hub", false, 1200, 1595],
+  ["myocircle-day1.png", "MyoCircle Day 1 exercise screen with a guided video, sets and reps tracking, and a Start Exercise button.", "OptraHealth · MyoCircle", "Where a session starts", false, 900, 675],
+  ["myocircle-level13.png", "MyoCircle workout progress screen showing Level 13, 25% progress, and the Day 1 exercise video queue.", "OptraHealth · MyoCircle", "Progress and the exercise queue", true, 700, 2083],
 ];
 
 const navItems = [
@@ -721,12 +726,14 @@ export default function App() {
                 motion, so a second clip-path reveal on top of it would just
                 fight the fly-in. */}
             <Assemble className="shot-grid" spread={220} swirl={10} stagger={0.3}>
-              {shots.map(([src, alt, tag, cap, tall], i) => (
+              {shots.map(([src, alt, tag, cap, tall, w, h], i) => (
                 <figure className={`shot${tall ? " shot--tall" : ""}`} data-testid={`gallery-shot-${i}`} key={src}>
                   <div className="wipe">
                     <img
                       src={IMG(src)}
                       alt={alt}
+                      width={w}
+                      height={h}
                       loading="lazy"
                       decoding="async"
                       data-testid={`gallery-shot-img-${i}`}
