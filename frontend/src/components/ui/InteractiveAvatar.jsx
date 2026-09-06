@@ -693,32 +693,58 @@ export default function InteractiveAvatar({
              and face-framing locks stay put relative to the face instead of
              covering it as the head glides past. ---------- */}
         <motion.g style={reduced ? {} : { x: headSlideX }}>
-          {/* Swept-Back Front Hair Crown Framing Face */}
+          {/* Curtain-bangs crown, per the reference photo — the smooth
+              swept-back arc is replaced with a gently waved hairline (two
+              soft bumps per side) so it reads as loose curled fringe rather
+              than sleek combed-back hair. Outer silhouette (head width /
+              top) is unchanged. */}
           <path
             d="M148 192
                C140 110 172 72 220 72
                C268 72 300 110 292 192
-               C278 152 254 135 220 135
-               C186 135 162 152 148 192 Z"
+               C284 178 270 164 258 156
+               C246 150 236 158 228 148
+               C224 142 222 138 220 140
+               C218 138 216 142 212 148
+               C204 158 194 150 182 156
+               C170 164 156 178 148 192 Z"
             fill="url(#ia-hairFront)"
           />
 
-          {/* Hairline Sleek Flow Strokes */}
+          {/* Wavy curl strands replacing the two clean strokes that read as
+              a hard triangular part — shorter, offset, and curved so the
+              part looks loose and wavy like the reference photo. */}
           <path
-            d="M162 142 C180 110 205 88 220 85"
+            d="M180 152 C190 132 182 120 194 102"
             stroke="url(#ia-hairLite)"
-            strokeWidth="3"
+            strokeWidth="2.6"
             strokeLinecap="round"
             fill="none"
             opacity="0.55"
           />
           <path
-            d="M278 142 C260 110 235 88 220 85"
+            d="M158 168 C172 152 164 140 176 122"
             stroke="url(#ia-hairLite)"
-            strokeWidth="3"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.5"
+          />
+          <path
+            d="M260 152 C250 132 258 120 246 102"
+            stroke="url(#ia-hairLite)"
+            strokeWidth="2.6"
             strokeLinecap="round"
             fill="none"
             opacity="0.55"
+          />
+          <path
+            d="M282 168 C268 152 276 140 264 122"
+            stroke="url(#ia-hairLite)"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.5"
           />
           {/* A couple of loose flyaway hairs at the part — small, thin, real
               hair is never perfectly smooth at the edges. */}
