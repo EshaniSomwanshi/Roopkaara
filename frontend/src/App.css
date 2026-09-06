@@ -1172,6 +1172,7 @@ figcaption {
   gap: 1rem;
 }
 .footer-location { justify-self: start; }
+.footer-emoji { font-size: 1.35em; line-height: 1; vertical-align: middle; display: inline-block; }
 .footer-copyright { justify-self: center; text-align: center; }
 .footer-top-link { justify-self: end; }
 .footer-row a { transition: color var(--dur-fast) var(--ease-state); }

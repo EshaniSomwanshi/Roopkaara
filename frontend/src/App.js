@@ -1055,7 +1055,7 @@ export default function App() {
 
       <footer className="site-footer">
         <div className="container footer-row">
-          <span className="footer-location">🌁 San Francisco, CA</span>
+          <span className="footer-location"><span className="footer-emoji">🌁</span> San Francisco, CA</span>
           <span className="footer-copyright">© {new Date().getFullYear()} Eshani Somwanshi</span>
           <a
             href="#top"
