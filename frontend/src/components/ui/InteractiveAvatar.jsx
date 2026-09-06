@@ -693,58 +693,70 @@ export default function InteractiveAvatar({
              and face-framing locks stay put relative to the face instead of
              covering it as the head glides past. ---------- */}
         <motion.g style={reduced ? {} : { x: headSlideX }}>
-          {/* Curtain-bangs crown, per the reference photo — the smooth
-              swept-back arc is replaced with a gently waved hairline (two
-              soft bumps per side) so it reads as loose curled fringe rather
-              than sleek combed-back hair. Outer silhouette (head width /
-              top) is unchanged. */}
+          {/* Curtain-bangs crown, per the reference photo — replaced with
+              two big rounded lobes per side (real chunky curl pieces, not
+              a rippled line). The deep dip of each lobe sits out at the
+              temple (x>270 / x<170), clear of the eyes below; only the
+              shallower second bump passes over the brow. Outer silhouette
+              (head width / top) is unchanged. */}
           <path
             d="M148 192
                C140 110 172 72 220 72
                C268 72 300 110 292 192
-               C284 178 270 164 258 156
-               C246 150 236 158 228 148
-               C224 142 222 138 220 140
-               C218 138 216 142 212 148
-               C204 158 194 150 182 156
-               C170 164 156 178 148 192 Z"
+               C294 208 282 212 272 194
+               C262 178 254 184 246 168
+               C234 156 228 152 220 148
+               C212 152 206 156 194 168
+               C186 184 178 178 168 194
+               C158 212 146 208 148 192 Z"
             fill="url(#ia-hairFront)"
           />
+          {/* Mid-tone patch under each lobe for depth, same layering the
+              rest of the hair uses (base tone → lighter under-layer). */}
+          <path
+            d="M272 194 C282 206 268 216 254 204 C246 196 248 182 258 176 Z"
+            fill="url(#ia-hairLite)"
+            opacity="0.3"
+          />
+          <path
+            d="M168 194 C158 206 172 216 186 204 C194 196 192 182 182 176 Z"
+            fill="url(#ia-hairLite)"
+            opacity="0.3"
+          />
 
-          {/* Wavy curl strands replacing the two clean strokes that read as
-              a hard triangular part — shorter, offset, and curved so the
-              part looks loose and wavy like the reference photo. */}
+          {/* Bold curl strands tracing each lobe's edge — visible loops
+              instead of faint lines, so the wave reads clearly. */}
           <path
-            d="M180 152 C190 132 182 120 194 102"
+            d="M284 202 C292 188 286 170 270 158 C282 172 280 190 268 200"
             stroke="url(#ia-hairLite)"
-            strokeWidth="2.6"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.65"
+          />
+          <path
+            d="M250 172 C256 160 250 148 236 140"
+            stroke="url(#ia-hairLite)"
+            strokeWidth="2.4"
             strokeLinecap="round"
             fill="none"
             opacity="0.55"
           />
           <path
-            d="M158 168 C172 152 164 140 176 122"
+            d="M156 202 C148 188 154 170 170 158 C158 172 160 190 172 200"
             stroke="url(#ia-hairLite)"
-            strokeWidth="2.2"
+            strokeWidth="3"
             strokeLinecap="round"
             fill="none"
-            opacity="0.5"
+            opacity="0.65"
           />
           <path
-            d="M260 152 C250 132 258 120 246 102"
+            d="M190 172 C184 160 190 148 204 140"
             stroke="url(#ia-hairLite)"
-            strokeWidth="2.6"
+            strokeWidth="2.4"
             strokeLinecap="round"
             fill="none"
             opacity="0.55"
-          />
-          <path
-            d="M282 168 C268 152 276 140 264 122"
-            stroke="url(#ia-hairLite)"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.5"
           />
           {/* A couple of loose flyaway hairs at the part — small, thin, real
               hair is never perfectly smooth at the edges. */}
