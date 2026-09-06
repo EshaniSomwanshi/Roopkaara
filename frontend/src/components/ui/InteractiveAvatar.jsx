@@ -335,8 +335,11 @@ export default function InteractiveAvatar({
              its own timing — real hair never moves as a single rigid mass.
              Each lock is a base-tone shape plus a lighter highlight stroke
              traced just inside its outer edge, the same base → highlight
-             layering used for painted hair. */}
-        <g>
+             layering used for painted hair. Hair is attached to the head, not
+             the shoulders, so it rides along with the neck-slide (headSlideX)
+             — otherwise the head glides out from under a stationary hairline
+             and covers/uncovers the face at the wrong spot. */}
+        <motion.g style={reduced ? {} : { x: headSlideX }}>
           <motion.g
             style={{ transformOrigin: "222px 78px" }}
             animate={reduced ? undefined : { rotate: [-1.6, 1.4, -1.6] }}
@@ -385,7 +388,7 @@ export default function InteractiveAvatar({
               opacity="0.45"
             />
           </motion.g>
-        </g>
+        </motion.g>
 
         {/* ---------- LAYER 2 — NECK, SHOULDERS, KURTA ---------- */}
         <g id="ia-body">
@@ -658,8 +661,11 @@ export default function InteractiveAvatar({
           </g>
         </motion.g>
 
-        {/* ---------- LAYER 4 — SWEPT-BACK CROWN + FOUR FACE-FRAMING WAVES ---------- */}
-        <g>
+        {/* ---------- LAYER 4 — SWEPT-BACK CROWN + FOUR FACE-FRAMING WAVES ----------
+             Also head-attached — rides along with headSlideX so the crown
+             and face-framing locks stay put relative to the face instead of
+             covering it as the head glides past. ---------- */}
+        <motion.g style={reduced ? {} : { x: headSlideX }}>
           {/* Swept-Back Front Hair Crown Framing Face */}
           <path
             d="M148 192
@@ -745,10 +751,13 @@ export default function InteractiveAvatar({
             />
           </motion.g>
 
-        </g>
+        </motion.g>
 
         {/* ---------- LAYER 5 — JHUMKAS ---------- */}
-        <g id="ia-jhumkas">
+        {/* Dangle from the earlobes, which are part of the head group — ride
+            along with headSlideX so they stay attached to the ears instead
+            of floating away from them as the head glides. */}
+        <motion.g style={reduced ? {} : { x: headSlideX }} id="ia-jhumkas">
           <motion.g style={reduced ? {} : { rotate: earringLeftRotate, transformOrigin: "152px 252px" }}>
             <circle cx="152" cy="252" r="3.4" fill="url(#ia-silver)" stroke="#5F6675" strokeWidth="0.7" />
             <line x1="152" y1="255" x2="152" y2="261" stroke="#98A0B0" strokeWidth="1.8" />
@@ -772,7 +781,7 @@ export default function InteractiveAvatar({
             <circle cx="292.5" cy="277.5" r="1.4" fill="#FFF" stroke="#98A0B0" strokeWidth="0.5" />
             <circle cx="297" cy="276.5" r="1.4" fill="#FFF" stroke="#98A0B0" strokeWidth="0.5" />
           </motion.g>
-        </g>
+        </motion.g>
         </motion.g>
       </motion.svg>
     </div>
