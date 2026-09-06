@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   animate,
+  AnimatePresence,
   motion,
   useInView,
   useMotionValue,
@@ -229,30 +230,73 @@ export function Magnetic({ children, strength = 0.28, className = "" }) {
   );
 }
 
-/* Theme switch ------------------------------------------------------------- */
+/* Theme switch — collapsed to a single pill showing the active theme;
+   expands inline into all three options (active first) on click, Apple-style
+   expanding/collapsible capsule. Picking an option or clicking outside
+   collapses it back down. ------------------------------------------------- */
 export function ThemeSwitch({ theme, setTheme, mobile = false }) {
+  const [expanded, setExpanded] = useState(false);
+  const reduced = useReducedMotion();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const close = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setExpanded(false);
+    };
+    const onKey = (e) => { if (e.key === "Escape") setExpanded(false); };
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [expanded]);
+
+  const active = THEMES.find((t) => t.id === theme) || THEMES[0];
+  const shown = expanded ? [active, ...THEMES.filter((t) => t.id !== theme)] : [active];
+
   return (
-    <div
-      className={`theme-switch${mobile ? " theme-switch-mobile" : ""}`}
+    <motion.div
+      ref={ref}
+      layout
+      transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 38, mass: 0.7 }}
+      className={`theme-switch${mobile ? " theme-switch-mobile" : ""}${expanded ? " is-expanded" : ""}`}
       role="group"
       aria-label="Colour theme"
       data-testid={mobile ? "theme-switch-mobile" : "theme-switch"}
     >
-      {THEMES.map((t) => (
-        <button
-          type="button"
-          key={t.id}
-          className="theme-dot"
-          data-theme-value={t.id}
-          aria-pressed={theme === t.id}
-          onClick={() => setTheme(t.id)}
-          data-testid={`theme-${t.id}-button`}
-        >
-          <span className="theme-swatch" aria-hidden="true" />
-          <span className="theme-name">{t.label}</span>
-        </button>
-      ))}
-    </div>
+      <AnimatePresence initial={false}>
+        {shown.map((t, i) => (
+          <motion.button
+            type="button"
+            key={t.id}
+            layout
+            initial={reduced ? false : { opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduced ? undefined : { opacity: 0, scale: 0.85 }}
+            transition={{
+              layout: reduced ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 38, mass: 0.7 },
+              opacity: { duration: 0.16, delay: expanded ? i * 0.03 : 0 },
+              scale: { duration: 0.16, delay: expanded ? i * 0.03 : 0 },
+            }}
+            className="theme-dot"
+            data-theme-value={t.id}
+            aria-pressed={theme === t.id}
+            aria-expanded={i === 0 ? expanded : undefined}
+            onClick={() => {
+              if (!expanded) setExpanded(true);
+              else if (t.id === theme) setExpanded(false);
+              else { setTheme(t.id); setExpanded(false); }
+            }}
+            data-testid={`theme-${t.id}-button`}
+          >
+            <span className="theme-swatch" aria-hidden="true" />
+            <span className="theme-name">{t.label}</span>
+          </motion.button>
+        ))}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
